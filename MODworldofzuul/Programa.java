@@ -2,9 +2,14 @@
 public class Programa {
 
 	public static void main(String[] args) {
-		Jogo jogo = new Jogo();
+		//Jogo jogo = new Jogo();
 		
-		jogo.jogar();
-	}
+		//jogo.jogar();
+	
+                Janela janela = new Janela();
+                
+                janela.exibir();
+        
+        }
 
 }
