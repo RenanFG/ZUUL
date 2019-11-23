@@ -1,5 +1,8 @@
-import java.util.Scanner;
-
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 /**
  * Esta classe eh parte da aplicacao "World of Zuul".
  * "World of Zuul" eh um jogo de aventura muito simples, baseado em texto.  
@@ -16,6 +19,14 @@ import java.util.Scanner;
  * 
  * @author  Michael Kölling and David J. Barnes (traduzido por Julio Cesar Alves)
  * @version 2011.07.31 (2016.02.01)
+ */
+package rpgcorp.zuul;
+
+import java.util.Scanner;
+
+/**
+ *
+ * @author renan
  */
 public class Analisador 
 {

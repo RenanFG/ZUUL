@@ -1,3 +1,14 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package rpgcorp.zuul;
+
+/**
+ *
+ * @author renan
+ */
 /**
  * Classe Ambiente - um ambiente em um jogo adventure.
  *
@@ -19,7 +30,9 @@ import java.util.Map;
 public class Ambiente 
 {
     private String descricao;
-    private  Map<String,Ambiente> mapjogo; 
+    private  Map<String,Ambiente> mapjogo;
+    private boolean tesouro;
+    private boolean chave;
     /**
      * Cria um ambiente com a "descricao" passada. Inicialmente, ele
      * nao tem saidas. "descricao" eh algo como "uma cozinha" ou
@@ -33,19 +46,17 @@ public class Ambiente
     {
         mapjogo = new HashMap<String,Ambiente>();
         this.descricao = descricao;
+        tesouro=false;
+        chave = false;
     }
 
     /**
      * Define as saidas do ambiente. Cada direcao ou leva a um
      * outro ambiente ou eh null (nenhuma saida para la).
-     * @param norte A saida norte.
-     * @param leste A saida leste.
-     * @param sul A saida sul.
-     * @param oeste A saida oeste.
      */
     public void ajustarSaidas(String d, Ambiente a) 
     {
-      mapjogo.put(d, a);
+        mapjogo.put(d, a);
     }
 
     public Ambiente getAmbiente(String dir){
@@ -58,7 +69,26 @@ public class Ambiente
     {
         return descricao;
     }
+    
+    public void colocarTesouro(){
+        tesouro=true;
+    }
 
+    public boolean checarTesouro(){
+        return tesouro;
+    }
+    
+    public boolean checarChave(){
+        if (chave){
+            chave=false;
+            return true;
+        }
+        return false;
+    }
+    public void colocarChave(){
+        chave=true;
+    }
+    
     public String getSaidas() {
         String ret = "";
         for (String direcao: mapjogo.keySet()) {
@@ -66,7 +96,5 @@ public class Ambiente
         }
         return ret;
     }
-    
-    
 
 }

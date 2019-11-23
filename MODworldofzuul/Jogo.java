@@ -1,3 +1,17 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package rpgcorp.zuul;
+
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ *
+ * @author renan
+ */
 /**
  *  Essa eh a classe principal da aplicacao "World of Zull".
  *  "World of Zuul" eh um jogo de aventura muito simples, baseado em texto.
@@ -19,6 +33,7 @@ public class Jogo
 {
     private Analisador analisador;
     private Ambiente ambienteAtual;
+    private Jogador jogador;
         
     /**
      * Cria o jogo e incializa seu mapa interno.
@@ -27,6 +42,7 @@ public class Jogo
     {
         criarAmbientes();
         analisador = new Analisador();
+        jogador= new Jogador();
     }
 
     /**
@@ -35,52 +51,66 @@ public class Jogo
     private void criarAmbientes()
     {
         Ambiente escritorio, sala_tv, jardim, cozinha, sala_jantar, corredor, quarto1, quarto2, quarto3, quarto4, banheiro1, banheiro2;
-      
+        Estanciador e = new Estanciador();
         // cria os ambientes
         escritorio = new Ambiente("Escritorio");
+        e.add(escritorio);
         sala_tv = new Ambiente("Sala de TV");
+        // o tesouro nao pode estar na sala de tv
         jardim= new Ambiente("Jardim");
+        e.add(jardim);
         cozinha= new Ambiente("Cozinha");
+        e.add(cozinha);
         sala_jantar= new Ambiente("Sala de Jantar");
+        e.add(sala_jantar);
         corredor= new Ambiente("Corredor");
+        e.add(corredor);
         quarto1= new Ambiente("Quarto 1");
+        e.add(quarto1);
         quarto2= new Ambiente("Quarto 2");
+        e.add(quarto2);
         quarto3=new Ambiente("Quarto 3");
+        e.add(quarto3);
         quarto4=new Ambiente("Quarto 4");
+        e.add(quarto4);
         banheiro1=new Ambiente("Banheiro 1");
+        e.add(banheiro1);
         banheiro2=new Ambiente("Banheiro 2");
+        e.add(banheiro2);
         
         // inicializa as saidas dos ambientes
-        escritorio.ajustarSaidas(,);
-        sala_tv.ajustarSaidas(,);
-        sala_tv.ajustarSaidas(,);
-        sala_tv.ajustarSaidas(, );
-        jardim.ajustarSaidas(, );
-        jardim.ajustarSaidas(, );
-        cozinha.ajustarSaidas(, );
-        cozinha.ajustarSaidas(, );
-        sala_jantar.ajustarSaidas(, );
-        sala_jantar.ajustarSaidas(, );
-        sala_jantar.ajustarSaidas(, );
-        cozinha.ajustarSaidas(, );
-        cozinha.ajustarSaidas(, );
-        corredor.ajustarSaidas(, );
-        corredor.ajustarSaidas(, );
-        corredor.ajustarSaidas(, );
-        corredor.ajustarSaidas(, );
-        corredor.ajustarSaidas(, );
-        corredor.ajustarSaidas(, );
-        quarto1.ajustarSaidas(, );
-        quarto2.ajustarSaidas(, );
-        quarto3.ajustarSaidas(, );
-        quarto3.ajustarSaidas(, );
-        quarto4.ajustarSaidas(, );
-        banheiro1.ajustarSaidas(, );
-        banheiro2.ajustarSaidas(, );
-
+        escritorio.ajustarSaidas("Sala de TV",sala_tv);
+        sala_tv.ajustarSaidas("Jardim",jardim);
+        sala_tv.ajustarSaidas("Sala de Jantar",sala_jantar);
+        sala_tv.ajustarSaidas("Escritorio",escritorio );
+        jardim.ajustarSaidas("Sala de Jantar",sala_jantar );
+        jardim.ajustarSaidas("Sala de TV", sala_tv);
+        cozinha.ajustarSaidas("Jardim",jardim);
+        cozinha.ajustarSaidas("Sala de Jantar",sala_jantar );
+        sala_jantar.ajustarSaidas("Cozinha",cozinha );
+        sala_jantar.ajustarSaidas("Sala de tv",sala_tv );
+        sala_jantar.ajustarSaidas("Corredor",corredor );
+        corredor.ajustarSaidas("Sala de Jantar",sala_jantar );
+        corredor.ajustarSaidas("Quarto3",quarto3 );
+        corredor.ajustarSaidas("Quarto1", quarto1 );
+        corredor.ajustarSaidas("Quarto2", quarto2 );
+        corredor.ajustarSaidas("Quarto4",quarto4 );
+        corredor.ajustarSaidas("Banheiro1",banheiro1 );
+        quarto1.ajustarSaidas("Corredor",corredor );
+        quarto2.ajustarSaidas("Corredor",corredor );
+        quarto3.ajustarSaidas("Banheiro2",banheiro2 );
+        quarto3.ajustarSaidas("Corredor",corredor );
+        quarto4.ajustarSaidas("Corredor",corredor );
+        banheiro1.ajustarSaidas("Corredor",corredor );
+        banheiro2.ajustarSaidas("Quarto3",quarto3 );
 
         ambienteAtual = sala_tv;  // o jogo comeca na sala de tv
+        /** Gerando chave mestra e Tesouro em ambiente RNG  **/
+        e.plantarTesouro();
+        e.plantarChave();
+        
     }
+    
 
     /**
      *  Rotina principal do jogo. Fica em loop ate terminar o jogo.
@@ -93,7 +123,7 @@ public class Jogo
         // comandos e os executamos ate o jogo terminar.
                 
         boolean terminado = false;
-        while (! terminado) {
+        while (! terminado || jogador.get_ntentativas()== 0) {
             Comando comando = analisador.pegarComando();
             terminado = processarComando(comando);
         }
@@ -142,7 +172,10 @@ public class Jogo
         else if (palavraDeComando.equals("observar")) {
             observar();
         }
-
+        else if (palavraDeComando.equals("explodir")) {
+            detonarBomba(comando);
+        }
+        
         return querSair;
     }
 
@@ -176,21 +209,35 @@ public class Jogo
             System.out.println("Ir pra onde?");
             return;
         }
-
+        
         String direcao = comando.getSegundaPalavra();
-
         // Tenta sair do ambiente atual
         Ambiente proximoAmbiente = ambienteAtual.getAmbiente(direcao);
         
         if (proximoAmbiente == null) {
             System.out.println("Nao ha passagem!");
-        }
+        } 
+        else if(jogador.checarChave()){
+            System.out.println("Deseja usar a chave mestra? ");
+        }        
         else {
-            ambienteAtual = proximoAmbiente;
+           jogador.abrirPorta();
+           ambienteAtual = proximoAmbiente;
            imprimirAmbiente();
+           System.out.println("N tentativas restantes: " + jogador.get_ntentativas());
         }
     }
     
+    public void detonarBomba(Comando comando){
+        if(ambienteAtual.checarTesouro()){
+            System.out.println("Parabéns você encontrou o Tesouro!!!");
+            //terminar jogo com vitória
+        } else {
+            System.out.println("Você usou sua bomba e não encontrou o Tesouro!!!");
+            //terminar jogo com derrota
+        }
+        
+    }
     public void imprimirAmbiente(){
         System.out.println("Voce esta " + ambienteAtual.getDescricao());
     
