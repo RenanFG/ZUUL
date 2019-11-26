@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package rpgcorp.zuul;
+//package rpgcorp.zuul;
 
 /**
  *
@@ -47,7 +47,7 @@ public class Ambiente
         mapjogo = new HashMap<String,Ambiente>();
         this.descricao = descricao;
         tesouro=false;
-        chave = false;
+        chave =false;
     }
 
     /**

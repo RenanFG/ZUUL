@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package rpgcorp.zuul;
+//package rpgcorp.zuul;
 
 /**
  *
@@ -24,7 +24,7 @@ public class PalavrasComando
 {
     // um vetor constante que guarda todas as palavras de comandos validas
     private static final String[] comandosValidos = {
-        "ir", "sair", "ajuda", "observar"
+        "ir", "sair", "ajuda", "observar", "explodir", "hack"
     };
 
     /**

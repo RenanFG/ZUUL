@@ -3,7 +3,7 @@ import java.awt.GridLayout;
 import java.awt.FlowLayout;
 import javax.swing.*;
 
-package rpgcorp.zuul;
+//package rpgcorp.zuul;
 public class Janela {
 
 	private JFrame janela_principal;
@@ -41,7 +41,7 @@ public class Janela {
         comando = new JTextField();
 	
 	// endereço da imagem no image icon construtor
-        image = new JLabel(new ImageIcon("1f4d140f9b1a7881f0d8a9d07b04c952a3099151r1-480-480v2_hq.jpg"));
+        image = new JLabel(new ImageIcon("nature-3082832__340.jpg"));
         
         montarJanela();
     }
@@ -84,6 +84,28 @@ public class Janela {
        janela_principal.pack();
         
     }
+
+    public void setnTentivaRestantes(String s) {
+        nTentivaRestantes.setText(s);
+    }
+
+    public void setnDurChave(String s) {
+        nDurChave.setText(s);
+    }
+
+    public void setdEncotradas(String s) {
+        dEncotradas.setText(s);
+    }
+
+    public void setBemVindo(String s) {
+         bemVimdo.setText(s);
+    }
+    
+    
+    
+    
+    
+    
     public void exibir(){
      
         janela_principal.setVisible(true);

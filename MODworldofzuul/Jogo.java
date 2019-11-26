@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package rpgcorp.zuul;
+//package rpgcorp.zuul;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,15 +34,19 @@ public class Jogo
     private Analisador analisador;
     private Ambiente ambienteAtual;
     private Jogador jogador;
+    private Estanciador e;
+    private Janela janela;
         
     /**
      * Cria o jogo e incializa seu mapa interno.
      */
     public Jogo() 
     {
+        e = new Estanciador();
         criarAmbientes();
         analisador = new Analisador();
         jogador= new Jogador();
+        janela = new Janela();
     }
 
     /**
@@ -51,7 +55,6 @@ public class Jogo
     private void criarAmbientes()
     {
         Ambiente escritorio, sala_tv, jardim, cozinha, sala_jantar, corredor, quarto1, quarto2, quarto3, quarto4, banheiro1, banheiro2;
-        Estanciador e = new Estanciador();
         // cria os ambientes
         escritorio = new Ambiente("Escritorio");
         e.add(escritorio);
@@ -117,6 +120,8 @@ public class Jogo
      */
     public void jogar() 
     {            
+        //janela.exibir();
+        
         imprimirBoasVindas();
 
         // Entra no loop de comando principal. Aqui nos repetidamente lemos
@@ -135,11 +140,13 @@ public class Jogo
      */
     private void imprimirBoasVindas()
     {
-        System.out.println();
-        System.out.println("Bem-vindo ao World of Zuul!");
-        System.out.println("World of Zuul eh um novo jogo de aventura, incrivelmente chato.");
-        System.out.println("Digite 'ajuda' se voce precisar de ajuda.");
-        System.out.println();
+          janela.setBemVindo("Bem-vindo ao World of Zuul! \n World of Zuul eh um novo jogo de aventura, incrivelmente chato. \n Digite 'ajuda' se voce precisar de ajuda.");
+        
+        //System.out.println();
+       // System.out.println("Bem-vindo ao World of Zuul!");
+       // System.out.println("World of Zuul eh um novo jogo de aventura, incrivelmente chato.");
+       // System.out.println("Digite 'ajuda' se voce precisar de ajuda.");
+       // System.out.println();
         
         imprimirAmbiente();
         
@@ -173,7 +180,10 @@ public class Jogo
             observar();
         }
         else if (palavraDeComando.equals("explodir")) {
-            detonarBomba(comando);
+            detonarBomba();
+        }
+        else if (palavraDeComando.equals("hack")) {
+            hack();
         }
         
         return querSair;
@@ -224,11 +234,26 @@ public class Jogo
            jogador.abrirPorta();
            ambienteAtual = proximoAmbiente;
            imprimirAmbiente();
+           if(ambienteAtual.checarChave()){
+               jogador.achouChave();
+           System.out.println("Você achou a chave mestra!! parabens guerreiro");
+           }
            System.out.println("N tentativas restantes: " + jogador.get_ntentativas());
         }
     }
     
-    public void detonarBomba(Comando comando){
+    public void hack(){
+        System.out.println("O jogador tem : " + jogador.get_ntentativas() + "n de tentativas");
+        if(jogador.checarChave()){
+        System.out.println("O jogador tem : "+ jogador.get_chaveMestra() + "n de tentativas com a chave mestra");
+        } else {
+        System.out.println("O jogador não possui chaves");
+        }
+        System.out.println("O tesouro está no ambiente: " + e.kdTesouro());
+        System.out.println("A Chave está no ambiente: " + e.kdChave());
+    }
+    
+    public void detonarBomba(){
         if(ambienteAtual.checarTesouro()){
             System.out.println("Parabéns você encontrou o Tesouro!!!");
             //terminar jogo com vitória
