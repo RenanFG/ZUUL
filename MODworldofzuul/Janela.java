@@ -3,6 +3,7 @@ import java.awt.GridLayout;
 import java.awt.FlowLayout;
 import javax.swing.*;
 
+package rpgcorp.zuul;
 public class Janela {
 
 	private JFrame janela_principal;
