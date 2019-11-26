@@ -38,7 +38,8 @@ public class Janela {
         bemVimdo = new JLabel("Bem Vindo ao Jogo World of ZUUL");
         localAtual = new JLabel("Voce esta na cozinha");
         comando = new JTextField();
-
+	
+	// endereço da imagem no image icon construtor
         image = new JLabel(new ImageIcon("1f4d140f9b1a7881f0d8a9d07b04c952a3099151r1-480-480v2_hq.jpg"));
         
         montarJanela();
