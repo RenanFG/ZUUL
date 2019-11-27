@@ -120,7 +120,7 @@ public class Jogo
      */
     public void jogar() 
     {            
-        //janela.exibir();
+        janela.exibir();
         
         imprimirBoasVindas();
 
@@ -140,7 +140,7 @@ public class Jogo
      */
     private void imprimirBoasVindas()
     {
-          janela.setBemVindo("Bem-vindo ao World of Zuul! \n World of Zuul eh um novo jogo de aventura, incrivelmente chato. \n Digite 'ajuda' se voce precisar de ajuda.");
+          janela.setBemVindo("Bem vindo ao Caça ao Tesouro, um jogo de aventura super divertido. Digite 'ajuda' se precisar de ajuda");
         
         //System.out.println();
        // System.out.println("Bem-vindo ao World of Zuul!");
@@ -162,7 +162,8 @@ public class Jogo
         boolean querSair = false;
 
         if(comando.ehDesconhecido()) {
-            System.out.println("Eu nao entendi o que voce disse...");
+            janela.setLocalAtual("Eu nao entendi o que voce disse...");
+            //System.out.println("Eu nao entendi o que voce disse...");
             return false;
         }
 
@@ -198,11 +199,13 @@ public class Jogo
      */
     private void imprimirAjuda() 
     {
-        System.out.println("Voce esta perdido. Voce esta sozinho. Voce caminha");
-        System.out.println("pela universidade.");
-        System.out.println();
-        System.out.println("Suas palavras de comando sao:");
-        System.out.println("   ir sair ajuda");
+       janela.setLocalAtual("Suas palavrade de comando são: ir sair ajuda");
+        
+        //System.out.println("Voce esta perdido. Voce esta sozinho. Voce caminha");
+        //System.out.println("pela universidade.");
+        //System.out.println();
+        //System.out.println("Suas palavras de comando sao:");
+        //System.out.println(" ir sair ajuda");
     }
 
     /** 
@@ -210,13 +213,16 @@ public class Jogo
      * novo ambiente, caso contrario imprime mensagem de erro.
      */
     private void observar(){
-        System.out.println("Você está no ambiente "+ ambienteAtual.getDescricao() + " as possiveis saidas são: "+ ambienteAtual.getSaidas());
+        
+        janela.setLocalAtual("Você está no ambiente "+ ambienteAtual.getDescricao() + " as possiveis saidas são: "+ ambienteAtual.getSaidas());
+        //System.out.println("Você está no ambiente "+ ambienteAtual.getDescricao() + " as possiveis saidas são: "+ ambienteAtual.getSaidas());
     }
     private void irParaAmbiente(Comando comando) 
     {
         if(!comando.temSegundaPalavra()) {
             // se nao ha segunda palavra, nao sabemos pra onde ir...
-            System.out.println("Ir pra onde?");
+            janela.setLocalAtual("Ir pra onde?");
+           // System.out.println("Ir pra onde?");
             return;
         }
         
@@ -264,11 +270,13 @@ public class Jogo
         
     }
     public void imprimirAmbiente(){
-        System.out.println("Voce esta " + ambienteAtual.getDescricao());
-    
-        System.out.print("Saidas: " + ambienteAtual.getSaidas());
         
-        System.out.println();
+        janela.setLocalAtual("Voce esta " + ambienteAtual.getDescricao() + "  Saidas: " +  ambienteAtual.getSaidas());
+        //System.out.println("Voce esta " + ambienteAtual.getDescricao());
+    
+        //System.out.print("Saidas: " + ambienteAtual.getSaidas());
+        
+        //System.out.println();
     }
 
     /** 
