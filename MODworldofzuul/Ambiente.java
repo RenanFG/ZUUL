@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package rpgcorp.zuul;
+//package rpgcorp.zuul;
 
 /**
  *
@@ -24,8 +24,10 @@ package rpgcorp.zuul;
  * @author  Michael Kölling and David J. Barnes (traduzido por Julio Cesar Alves)
  * @version 2011.07.31 (2016.02.01)
  */
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.function.Function;
 
 public class Ambiente 
 {   
@@ -71,7 +73,7 @@ public class Ambiente
     {
         return descricao;
     }
-     public String getNome()
+     public String toString()
     {
         return nome;
     }
@@ -95,8 +97,11 @@ public class Ambiente
         chave=true;
     }
     
-    public String ambVizinho(){
-        return "NULL";
+    public ArrayList ambVizinho(ArrayList l){
+        mapjogo.keySet().stream().forEach((direcao) -> {
+            l.add(direcao);
+        });
+        return l;
     }
     
     public String getSaidas() {

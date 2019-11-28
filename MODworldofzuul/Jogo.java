@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package rpgcorp.zuul;
+//package rpgcorp.zuul;
 
 
 /**
@@ -181,6 +181,9 @@ public class Jogo
         else if (palavraDeComando.equals("explodir")) {
             detonarBomba();
         }
+        else if (palavraDeComando.equals("dicas")){
+            mostrarDicas();
+        }
         else if (palavraDeComando.equals("hack")) {
             hack();
         }
@@ -212,8 +215,8 @@ public class Jogo
      */
     private void observar(){
         
-        janela.setLocalAtual("Você está no ambiente "+ ambienteAtual.getNome() + " as possiveis saidas são: "+ ambienteAtual.getSaidas());
-        System.out.println("Você está no ambiente "+ ambienteAtual.getNome() + " as possiveis saidas são: "+ ambienteAtual.getSaidas());
+        janela.setLocalAtual("Você está no ambiente "+ ambienteAtual + " as possiveis saidas são: "+ ambienteAtual.getSaidas());
+        System.out.println("Você está no ambiente "+ ambienteAtual + " as possiveis saidas são: "+ ambienteAtual.getSaidas());
     }
     private void irParaAmbiente(Comando comando) 
     {
@@ -310,5 +313,9 @@ public class Jogo
         else {
             return true;  // sinaliza que nos queremos sair
         }
+    }
+
+    private void mostrarDicas() {
+       System.out.println("o Tesouro está próximo a : "+ e.gerarDicas());
     }
 }

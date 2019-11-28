@@ -1,4 +1,4 @@
-package rpgcorp.zuul;
+//package rpgcorp.zuul;
 
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
