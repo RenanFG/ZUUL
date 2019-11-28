@@ -20,7 +20,7 @@
  * @author  Michael Kölling and David J. Barnes (traduzido por Julio Cesar Alves)
  * @version 2011.07.31 (2016.02.01)
  */
-//package rpgcorp.zuul;
+package rpgcorp.zuul;
 
 import java.util.Scanner;
 

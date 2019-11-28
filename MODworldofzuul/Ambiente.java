@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-//package rpgcorp.zuul;
+package rpgcorp.zuul;
 
 /**
  *
@@ -28,7 +28,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Ambiente 
-{
+{   
+    private String nome;
     private String descricao;
     private  Map<String,Ambiente> mapjogo;
     private boolean tesouro;
@@ -42,10 +43,11 @@ public class Ambiente
      * "um jardim aberto".
      * @param descricao A descricao do ambiente.
      */
-    public Ambiente(String descricao) 
+    public Ambiente(String nome, String descricao) 
     {
         mapjogo = new HashMap<String,Ambiente>();
         this.descricao = descricao;
+        this.nome = nome;
         tesouro=false;
         chave =false;
     }
@@ -69,6 +71,10 @@ public class Ambiente
     {
         return descricao;
     }
+     public String getNome()
+    {
+        return nome;
+    }
     
     public void colocarTesouro(){
         tesouro=true;
@@ -87,6 +93,10 @@ public class Ambiente
     }
     public void colocarChave(){
         chave=true;
+    }
+    
+    public String ambVizinho(){
+        return "NULL";
     }
     
     public String getSaidas() {

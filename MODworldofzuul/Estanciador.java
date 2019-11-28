@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-//package rpgcorp.zuul;
+package rpgcorp.zuul;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -27,19 +27,23 @@ public class Estanciador {
         Collections.shuffle(listaRNG);
         Ambiente amb= listaRNG.get(0);
         amb.colocarTesouro();
-        tesouroLocation = amb.getDescricao();
+        tesouroLocation = amb.getNome();
     }
      public void plantarChave(){
         Collections.shuffle(listaRNG);
         Ambiente amb= listaRNG.get(0);
         amb.colocarChave();
-        chaveLocation= amb.getDescricao();
+        chaveLocation= amb.getNome();
     }
      public String kdTesouro(){
          return tesouroLocation;
      }
      public String kdChave(){
          return chaveLocation;
+     }
+     public String gerarDicas(){
+         
+     return "NULL";
      }
 }
 

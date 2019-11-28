@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-//package rpgcorp.zuul;
+package rpgcorp.zuul;
 
 import java.util.Random;
 
@@ -32,8 +32,14 @@ public class Jogador {
     public void achouChave(){
         chaveMestra = gerador.nextInt(12)+1;
     }
-    public void abrirPorta(){
+    public boolean abrirPorta(){
         ntentativas--;
+        gerador = new Random();
+        if(gerador.nextInt(10)+1 > 4){
+            return true;
+        } else {
+            return false;
+        }
     }
     public void explodirBomba(){
         bomba=false;

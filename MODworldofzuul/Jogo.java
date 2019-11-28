@@ -3,10 +3,8 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-//package rpgcorp.zuul;
+package rpgcorp.zuul;
 
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  *
@@ -56,38 +54,38 @@ public class Jogo
     {
         Ambiente escritorio, sala_tv, jardim, cozinha, sala_jantar, corredor, quarto1, quarto2, quarto3, quarto4, banheiro1, banheiro2;
         // cria os ambientes
-        escritorio = new Ambiente("Escritorio");
+        escritorio = new Ambiente("Escritorio", "Escritório, papéis picados e uma marca de tinta em forma de mão na fechadura");
         e.add(escritorio);
-        sala_tv = new Ambiente("Sala de TV");
+        sala_tv = new Ambiente("Sala de tv", "Sala de tv, a tv está desligada, porém você pode ouvir ruidos estranhos pelo auto falante");
         // o tesouro nao pode estar na sala de tv
-        jardim= new Ambiente("Jardim");
+        jardim= new Ambiente("Jardim","Jardim repleto de rosas vermelhas, parece que elas foram pintadas de sangue");
         e.add(jardim);
-        cozinha= new Ambiente("Cozinha");
+        cozinha= new Ambiente("Cozinha", "Cozinha, cheiro forte de comida estragada");
         e.add(cozinha);
-        sala_jantar= new Ambiente("Sala de Jantar");
+        sala_jantar= new Ambiente("Sala de Jantar", "Sala de Jantar, as cadeiras se mechem sozinhas, você sente frio");
         e.add(sala_jantar);
-        corredor= new Ambiente("Corredor");
+        corredor= new Ambiente("Corredor" , "Corredor, você ouve barulhos estranhos vindo dos quartos");
         e.add(corredor);
-        quarto1= new Ambiente("Quarto 1");
+        quarto1= new Ambiente("Quarto 1" , "Quarto 1, provavelmente usado por uma pessoa, voce percebe marcas de sangue na fechadura");
         e.add(quarto1);
-        quarto2= new Ambiente("Quarto 2");
+        quarto2= new Ambiente("Quarto 2" , "Quarto 2, pequeno quarto de serviço, nada álem de uma cama destruida");
         e.add(quarto2);
-        quarto3=new Ambiente("Quarto 3");
+        quarto3=new Ambiente("Quarto 3" ,  "Quarto 3, o maior quarto da casa, você percebe uma pintura na parede, nesta pintura tem um casal que seus olhos o seguem");
         e.add(quarto3);
-        quarto4=new Ambiente("Quarto 4");
+        quarto4=new Ambiente("Quarto 4", "Quarto 4, um quarto usado como depósito, varias caixas com bandagens e siringas espalhadas pelo chão");
         e.add(quarto4);
-        banheiro1=new Ambiente("Banheiro 1");
+        banheiro1=new Ambiente("Banheiro 1", "Banheiro 1, banheiro com marcas de pegada e sangue por todo lado, provavelment este era o banheiro central da casa" );
         e.add(banheiro1);
-        banheiro2=new Ambiente("Banheiro 2");
+        banheiro2=new Ambiente("Banheiro 2", "Banheiro 2, suite do Quarto 3, você percebe varias embalagens de rémedio e uma faca ensanguentada");
         e.add(banheiro2);
         
         // inicializa as saidas dos ambientes
-        escritorio.ajustarSaidas("Sala de TV",sala_tv);
+        escritorio.ajustarSaidas("Sala de tv",sala_tv);
         sala_tv.ajustarSaidas("Jardim",jardim);
         sala_tv.ajustarSaidas("Sala de Jantar",sala_jantar);
         sala_tv.ajustarSaidas("Escritorio",escritorio );
-        jardim.ajustarSaidas("Sala de Jantar",sala_jantar );
-        jardim.ajustarSaidas("Sala de TV", sala_tv);
+        jardim.ajustarSaidas("Cozinha",cozinha );
+        jardim.ajustarSaidas("Sala de tv", sala_tv);
         cozinha.ajustarSaidas("Jardim",jardim);
         cozinha.ajustarSaidas("Sala de Jantar",sala_jantar );
         sala_jantar.ajustarSaidas("Cozinha",cozinha );
@@ -142,11 +140,11 @@ public class Jogo
     {
           janela.setBemVindo("Bem vindo ao Caça ao Tesouro, um jogo de aventura super divertido. Digite 'ajuda' se precisar de ajuda");
         
-        //System.out.println();
-       // System.out.println("Bem-vindo ao World of Zuul!");
-       // System.out.println("World of Zuul eh um novo jogo de aventura, incrivelmente chato.");
-       // System.out.println("Digite 'ajuda' se voce precisar de ajuda.");
-       // System.out.println();
+        System.out.println();
+        System.out.println("Bem-vindo ao World of Zuul!");
+        System.out.println("World of Zuul eh um novo jogo de aventura, incrivelmente chato.");
+        System.out.println("Digite 'ajuda' se voce precisar de ajuda.");
+        System.out.println();
         
         imprimirAmbiente();
         
@@ -163,7 +161,7 @@ public class Jogo
 
         if(comando.ehDesconhecido()) {
             janela.setLocalAtual("Eu nao entendi o que voce disse...");
-            //System.out.println("Eu nao entendi o que voce disse...");
+            System.out.println("Eu nao entendi o que voce disse...");
             return false;
         }
 
@@ -201,11 +199,11 @@ public class Jogo
     {
        janela.setLocalAtual("Suas palavrade de comando são: ir sair ajuda");
         
-        //System.out.println("Voce esta perdido. Voce esta sozinho. Voce caminha");
-        //System.out.println("pela universidade.");
-        //System.out.println();
-        //System.out.println("Suas palavras de comando sao:");
-        //System.out.println(" ir sair ajuda");
+        System.out.println("Voce esta com medo. Voce esta sozinho. Voce caminha");
+        System.out.println("pela casa mal assombrada.");
+        System.out.println();
+        System.out.println("Suas palavras de comando sao:");
+        System.out.println(" ir sair ajuda explodir(use apenas uma vez)");
     }
 
     /** 
@@ -214,15 +212,15 @@ public class Jogo
      */
     private void observar(){
         
-        janela.setLocalAtual("Você está no ambiente "+ ambienteAtual.getDescricao() + " as possiveis saidas são: "+ ambienteAtual.getSaidas());
-        //System.out.println("Você está no ambiente "+ ambienteAtual.getDescricao() + " as possiveis saidas são: "+ ambienteAtual.getSaidas());
+        janela.setLocalAtual("Você está no ambiente "+ ambienteAtual.getNome() + " as possiveis saidas são: "+ ambienteAtual.getSaidas());
+        System.out.println("Você está no ambiente "+ ambienteAtual.getNome() + " as possiveis saidas são: "+ ambienteAtual.getSaidas());
     }
     private void irParaAmbiente(Comando comando) 
     {
         if(!comando.temSegundaPalavra()) {
             // se nao ha segunda palavra, nao sabemos pra onde ir...
             janela.setLocalAtual("Ir pra onde?");
-           // System.out.println("Ir pra onde?");
+            System.out.println("Ir pra onde?");
             return;
         }
         
@@ -232,39 +230,58 @@ public class Jogo
         
         if (proximoAmbiente == null) {
             System.out.println("Nao ha passagem!");
+            janela.setLocalAtual("Nao ha passagem!");
         } 
         else if(jogador.checarChave()){
             System.out.println("Deseja usar a chave mestra? ");
+            janela.setLocalAtual("Deseja usar a chave mestra? ");
         }        
         else {
-           jogador.abrirPorta();
+           boolean abriu = jogador.abrirPorta();
+           if(abriu){
            ambienteAtual = proximoAmbiente;
            imprimirAmbiente();
            if(ambienteAtual.checarChave()){
                jogador.achouChave();
            System.out.println("Você achou a chave mestra!! parabens guerreiro");
+           janela.setLocalAtual("Você achou a chave mestra!! parabens guerreiro");
            }
            System.out.println("N tentativas restantes: " + jogador.get_ntentativas());
+           janela.setLocalAtual("N tentativas restantes: " + jogador.get_ntentativas());
+           } else {
+           System.out.println("Você falhou em abrir a porta");
+           janela.setLocalAtual("Você falhou em abrir a porta");
+           System.out.println("N tentativas restantes: " + jogador.get_ntentativas());
+           janela.setLocalAtual("N tentativas restantes: " + jogador.get_ntentativas());
+           }
         }
     }
     
     public void hack(){
+        /*Hack para facilitar testes */
         System.out.println("O jogador tem : " + jogador.get_ntentativas() + "n de tentativas");
+        janela.setLocalAtual("O jogador tem : " + jogador.get_ntentativas() + "n de tentativas");
         if(jogador.checarChave()){
         System.out.println("O jogador tem : "+ jogador.get_chaveMestra() + "n de tentativas com a chave mestra");
+        janela.setLocalAtual("O jogador tem : "+ jogador.get_chaveMestra() + "n de tentativas com a chave mestra");
         } else {
         System.out.println("O jogador não possui chaves");
+        janela.setLocalAtual("O jogador não possui chaves");
         }
         System.out.println("O tesouro está no ambiente: " + e.kdTesouro());
+        janela.setLocalAtual("O tesouro está no ambiente: " + e.kdTesouro());
         System.out.println("A Chave está no ambiente: " + e.kdChave());
+        janela.setLocalAtual("A Chave está no ambiente: " + e.kdChave());
     }
     
     public void detonarBomba(){
         if(ambienteAtual.checarTesouro()){
             System.out.println("Parabéns você encontrou o Tesouro!!!");
+            janela.setLocalAtual("Parabéns você encontrou o Tesouro!!!");
             //terminar jogo com vitória
         } else {
             System.out.println("Você usou sua bomba e não encontrou o Tesouro!!!");
+            janela.setLocalAtual("Você usou sua bomba e não encontrou o Tesouro!!!");
             //terminar jogo com derrota
         }
         
@@ -272,11 +289,11 @@ public class Jogo
     public void imprimirAmbiente(){
         
         janela.setLocalAtual("Voce esta " + ambienteAtual.getDescricao() + "  Saidas: " +  ambienteAtual.getSaidas());
-        //System.out.println("Voce esta " + ambienteAtual.getDescricao());
+        System.out.println("Voce esta " + ambienteAtual.getDescricao());
     
-        //System.out.print("Saidas: " + ambienteAtual.getSaidas());
+        System.out.print("Saidas: " + ambienteAtual.getSaidas());
         
-        //System.out.println();
+        System.out.println();
     }
 
     /** 

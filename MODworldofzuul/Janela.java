@@ -1,9 +1,11 @@
+package rpgcorp.zuul;
+
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.awt.FlowLayout;
 import javax.swing.*;
 
-//package rpgcorp.zuul;
+
 public class Janela {
 
 	private JFrame janela_principal;
@@ -43,7 +45,7 @@ public class Janela {
 	// endereço da imagem no image icon construtor
         image = new JLabel(new ImageIcon("src/mapa zull.jpg"));
         
-        montarJanela();
+        //montarJanela();
     }
     
     public void montarJanela(){
