@@ -53,6 +53,9 @@ public class Jogador {
     public int get_chaveMestra(){
         return chaveMestra;
     }
+    public void use_chaveMestra(){
+        chaveMestra--;
+    }
 
     
 }

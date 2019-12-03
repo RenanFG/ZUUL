@@ -26,15 +26,20 @@
  * @author  Michael Kölling and David J. Barnes (traduzido por Julio Cesar Alves)
  * @version 2011.07.31 (2016.02.01)
  */
+import java.util.Scanner;
 
 public class Jogo 
 {
+
+    static void sComando(String text) {
+        
+    }
     private Analisador analisador;
     private Ambiente ambienteAtual;
     private Jogador jogador;
     private Estanciador e;
     private Janela janela;
-        
+    boolean terminado;  
     /**
      * Cria o jogo e incializa seu mapa interno.
      */
@@ -45,6 +50,7 @@ public class Jogo
         analisador = new Analisador();
         jogador= new Jogador();
         janela = new Janela();
+        terminado = false;
     }
 
     /**
@@ -80,18 +86,18 @@ public class Jogo
         e.add(banheiro2);
         
         // inicializa as saidas dos ambientes
-        escritorio.ajustarSaidas("Sala de tv",sala_tv);
+        escritorio.ajustarSaidas("SalaTV",sala_tv);
         sala_tv.ajustarSaidas("Jardim",jardim);
-        sala_tv.ajustarSaidas("Sala de Jantar",sala_jantar);
+        sala_tv.ajustarSaidas("SalaJantar",sala_jantar);
         sala_tv.ajustarSaidas("Escritorio",escritorio );
         jardim.ajustarSaidas("Cozinha",cozinha );
-        jardim.ajustarSaidas("Sala de tv", sala_tv);
+        jardim.ajustarSaidas("Saladetv", sala_tv);
         cozinha.ajustarSaidas("Jardim",jardim);
-        cozinha.ajustarSaidas("Sala de Jantar",sala_jantar );
+        cozinha.ajustarSaidas("SalaJantar",sala_jantar );
         sala_jantar.ajustarSaidas("Cozinha",cozinha );
-        sala_jantar.ajustarSaidas("Sala de tv",sala_tv );
+        sala_jantar.ajustarSaidas("SalaTV",sala_tv );
         sala_jantar.ajustarSaidas("Corredor",corredor );
-        corredor.ajustarSaidas("Sala de Jantar",sala_jantar );
+        corredor.ajustarSaidas("SalaJantar",sala_jantar );
         corredor.ajustarSaidas("Quarto3",quarto3 );
         corredor.ajustarSaidas("Quarto1", quarto1 );
         corredor.ajustarSaidas("Quarto2", quarto2 );
@@ -118,17 +124,15 @@ public class Jogo
      */
     public void jogar() 
     {            
-        janela.exibir();
+        //janela.exibir();
         
         imprimirBoasVindas();
 
         // Entra no loop de comando principal. Aqui nos repetidamente lemos
         // comandos e os executamos ate o jogo terminar.
-                
-        boolean terminado = false;
-        while (! terminado || jogador.get_ntentativas()== 0) {
+        while (terminado == false) {
             Comando comando = analisador.pegarComando();
-            terminado = processarComando(comando);
+            processarComando(comando);
         }
         System.out.println("Obrigado por jogar. Ate mais!");
     }
@@ -138,7 +142,7 @@ public class Jogo
      */
     private void imprimirBoasVindas()
     {
-          janela.setBemVindo("Bem vindo ao Caça ao Tesouro, um jogo de aventura super divertido. Digite 'ajuda' se precisar de ajuda");
+        janela.setBemVindo("Bem vindo ao Caça ao Tesouro, um jogo de aventura super divertido. Digite 'ajuda' se precisar de ajuda");
         
         System.out.println();
         System.out.println("Bem-vindo ao World of Zuul!");
@@ -230,33 +234,31 @@ public class Jogo
         String direcao = comando.getSegundaPalavra();
         // Tenta sair do ambiente atual
         Ambiente proximoAmbiente = ambienteAtual.getAmbiente(direcao);
-        
+        if (jogador.get_ntentativas() < 1){
+            System.out.println("N de tentativas esgotadas, você perdeu");
+            janela.setLocalAtual("N de tentativas esgotadas, você perdeu");
+            terminado = true;
+        }
         if (proximoAmbiente == null) {
             System.out.println("Nao ha passagem!");
             janela.setLocalAtual("Nao ha passagem!");
         } 
         else if(jogador.checarChave()){
+            Scanner s= new Scanner(System.in);
             System.out.println("Deseja usar a chave mestra? ");
-            janela.setLocalAtual("Deseja usar a chave mestra? ");
+            janela.setLocalAtual("Deseja usar a chave mestra? sim/nao");
+            String resposta = s.nextLine();
+            if (resposta.equals("sim")){
+                jogador.use_chaveMestra();
+                ambienteAtual = proximoAmbiente;
+                imprimirAmbiente();
+                System.out.println("Você gastou a chave mestra, tentativas restantes: " + jogador.get_chaveMestra());
+            } else {
+            irAmbienteSemChave(proximoAmbiente);
+            }
         }        
         else {
-           boolean abriu = jogador.abrirPorta();
-           if(abriu){
-           ambienteAtual = proximoAmbiente;
-           imprimirAmbiente();
-           if(ambienteAtual.checarChave()){
-               jogador.achouChave();
-           System.out.println("Você achou a chave mestra!! parabens guerreiro");
-           janela.setLocalAtual("Você achou a chave mestra!! parabens guerreiro");
-           }
-           System.out.println("N tentativas restantes: " + jogador.get_ntentativas());
-           janela.setLocalAtual("N tentativas restantes: " + jogador.get_ntentativas());
-           } else {
-           System.out.println("Você falhou em abrir a porta");
-           janela.setLocalAtual("Você falhou em abrir a porta");
-           System.out.println("N tentativas restantes: " + jogador.get_ntentativas());
-           janela.setLocalAtual("N tentativas restantes: " + jogador.get_ntentativas());
-           }
+            irAmbienteSemChave(proximoAmbiente);
         }
     }
     
@@ -281,11 +283,17 @@ public class Jogo
         if(ambienteAtual.checarTesouro()){
             System.out.println("Parabéns você encontrou o Tesouro!!!");
             janela.setLocalAtual("Parabéns você encontrou o Tesouro!!!");
+            System.out.println("Vitória!!!");
+            janela.setLocalAtual("Vitória!!!");
+            terminado= true;
             //terminar jogo com vitória
         } else {
             System.out.println("Você usou sua bomba e não encontrou o Tesouro!!!");
             janela.setLocalAtual("Você usou sua bomba e não encontrou o Tesouro!!!");
+            System.out.println("Derrota!!!");
+            janela.setLocalAtual("Derrota!!!");
             //terminar jogo com derrota
+            terminado = true;
         }
         
     }
@@ -317,5 +325,25 @@ public class Jogo
 
     private void mostrarDicas() {
        System.out.println("o Tesouro está próximo a : "+ e.gerarDicas());
+    }
+
+    private void irAmbienteSemChave(Ambiente proximoAmbiente) {
+        boolean abriu = jogador.abrirPorta();
+           if(abriu){
+           ambienteAtual = proximoAmbiente;
+           imprimirAmbiente();
+           if(ambienteAtual.checarChave()){
+               jogador.achouChave();
+           System.out.println("Você achou a chave mestra!! parabens guerreiro");
+           janela.setLocalAtual("Você achou a chave mestra!! parabens guerreiro");
+           }
+           System.out.println("N tentativas restantes: " + jogador.get_ntentativas());
+           janela.setLocalAtual("N tentativas restantes: " + jogador.get_ntentativas());
+           } else {
+           System.out.println("Você falhou em abrir a porta");
+           janela.setLocalAtual("Você falhou em abrir a porta");
+           System.out.println("N tentativas restantes: " + jogador.get_ntentativas());
+           janela.setLocalAtual("N tentativas restantes: " + jogador.get_ntentativas());
+           }
     }
 }

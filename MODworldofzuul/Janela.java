@@ -3,10 +3,15 @@
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.awt.FlowLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.*;
+import static javax.swing.WindowConstants.EXIT_ON_CLOSE;
 
 
-public class Janela {
+
+
+public class Janela extends JFrame{
 
 	private JFrame janela_principal;
 
@@ -15,14 +20,14 @@ public class Janela {
 
 	private JLabel durChave;
 	private JLabel nDurChave;
-
+        
 	private JLabel dEncontradas_label; 
 	private JLabel dEncotradas;
 	
 	private JLabel bemVimdo;
 	private JLabel localAtual;
 	private JTextField comando; 
-	
+	private JButton enviar;
 	private JLabel image;
 
 
@@ -42,10 +47,16 @@ public class Janela {
         localAtual = new JLabel();
         comando = new JTextField();
 	
+        enviar= new JButton();
+        enviar.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent e){
+                Jogo.sComando(comando.getText());
+            }
+        });
 	// endereço da imagem no image icon construtor
         image = new JLabel(new ImageIcon("src/mapa zull.jpg"));
-        
-        //montarJanela();
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        montarJanela();
     }
     
     public void montarJanela(){
@@ -75,6 +86,8 @@ public class Janela {
         painelSul.add(bemVimdo);
         painelSul.add(localAtual);
         painelSul.add(comando);
+        painelSul.add(enviar);
+        
         janela_principal.add(painelSul,BorderLayout.SOUTH);
         
         //painelcentral
@@ -112,13 +125,6 @@ public class Janela {
         
         localAtual.setText(s);
     }
-    
-    
-    
-    
-    
-    
-    
     
     public void exibir(){
      
